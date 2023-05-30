@@ -12,4 +12,4 @@
     <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
         <%@include file="/includes/header.jsp"%>
         <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-            <%@include file="/includes/sidebar-seller.jsp"%>
+            <%@include file="/includes/sidebar-client.jsp"%>
