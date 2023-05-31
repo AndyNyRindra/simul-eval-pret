@@ -32,4 +32,12 @@ public class ReloadRequestService extends CrudService<ReloadRequest, ReloadReque
         obj.setStatus(status);
         return super.create(obj);
     }
+
+    public ReloadRequest updateStatus(Long id, Long statusId) throws Exception {
+        ReloadRequest obj = findById(id);
+        Status status = new Status();
+        status.setId(statusId);
+        obj.setStatus(status);
+        return super.update(obj);
+    }
 }

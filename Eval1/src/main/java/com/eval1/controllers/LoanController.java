@@ -68,6 +68,9 @@ public class LoanController {
     public ModelAndView list(ModelAndView modelAndView, LoanFilter loanFilter, @RequestParam(required = false) Integer page) throws Exception {
         securityManager.isConnected();
         if (page == null) page = 1;
+        AppUser appUser = (AppUser) session.getAttribute("appUser");
+        if (!appUser.isAdmin())
+            loanFilter.setClient(appUser);
         ListResponse requests = loanRequestService.search(loanFilter, page);
         modelAndView.addObject("requiredPages", loanRequestService.getRequiredPages(requests.getCount()));
         modelAndView.addObject("requests",requests.getElements());

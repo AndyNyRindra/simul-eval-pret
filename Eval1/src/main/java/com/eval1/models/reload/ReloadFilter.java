@@ -1,6 +1,7 @@
 package com.eval1.models.reload;
 
 import com.eval1.models.Status;
+import com.eval1.models.appUser.AppUser;
 import custom.springutils.search.FilterObject;
 import custom.springutils.search.OrderMethod;
 import custom.springutils.search.map.Filter;
@@ -16,6 +17,8 @@ public class ReloadFilter extends FilterObject {
 
     @IgnoreMapping
     private Long statusId;
+
+    private AppUser client;
 
     @Filter("ilike_client.name")
     private String clientName;

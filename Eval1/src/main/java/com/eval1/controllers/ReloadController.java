@@ -64,6 +64,9 @@ public class ReloadController {
     public ModelAndView list(ModelAndView modelAndView, ReloadFilter reloadFilter, @RequestParam(required = false) Integer page) throws Exception {
         securityManager.isConnected();
         if (page == null) page = 1;
+        AppUser appUser = (AppUser) session.getAttribute("appUser");
+        if (!appUser.isAdmin())
+            reloadFilter.setClient(appUser);
         ListResponse requests = reloadRequestService.search(reloadFilter, page);
         modelAndView.addObject("requiredPages", reloadRequestService.getRequiredPages(requests.getCount()));
         modelAndView.addObject("requests",requests.getElements());
@@ -73,4 +76,37 @@ public class ReloadController {
         modelAndView.setViewName("reload/list-requests");
         return modelAndView;
     }
+
+    @GetMapping("refuse/{id}")
+    public ResponseEntity<?> refuse(@PathVariable Long id) throws Exception {
+        securityManager.isAdmin();
+        try {
+
+            reloadRequestService.updateStatus(id, 10L);
+            return ResponseEntity.ok("success");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        }
+
+    }
+
+    @GetMapping("restore/{id}")
+    public ResponseEntity<?> restore(@PathVariable Long id) throws Exception {
+        securityManager.isAdmin();
+        try {
+
+            reloadRequestService.updateStatus(id, 0L);
+            return ResponseEntity.ok("success");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        }
+
+    }
+
 }

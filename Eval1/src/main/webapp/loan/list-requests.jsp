@@ -19,6 +19,7 @@
 %>
 <%
     List<Status> status = (List<Status>) request.getAttribute("status");
+    AppUser appUser = (AppUser) session.getAttribute("appUser");
 %>
 <head>
     <title>Demandes de pret</title>
@@ -85,6 +86,7 @@
                             </div>
 
                             <div class="row">
+                                <% if (appUser.isAdmin()) { %>
                                 <div class="col-sm-6 mb-5">
                                     <input type="text" name="clientName" class="form-control" placeholder="Client"
                                         <% if (loanFilter != null && loanFilter.getClientName() != null) { %>
@@ -92,6 +94,7 @@
                                         <% } %>
                                     >
                                 </div>
+                                <% } %>
                                 <div class="col-sm-6 mb-5">
                                     <select name="statusId" class="form-select"
                                             data-control="select2" data-placeholder="Status"
@@ -190,8 +193,10 @@
     </div>
     <!--end:content-->
 </div>
-<%@include file="../includes/delete.jsp"%>
+<%@include file="../includes/refuse.jsp"%>
+<%@include file="../includes/restore.jsp"%>
 
 <!--end::main-->
 <script src="${pageContext.request.contextPath}/assets/custom/elementDelete.js"></script>
+<script src="${pageContext.request.contextPath}/assets/custom/elementRestore.js"></script>
 <%@include file="../includes/layouts/default/bottom.jsp"%>

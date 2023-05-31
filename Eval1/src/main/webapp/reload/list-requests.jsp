@@ -21,6 +21,7 @@
 %>
 <%
     List<Status> status = (List<Status>) request.getAttribute("status");
+    AppUser appUser = (AppUser) session.getAttribute("appUser");
 %>
 <head>
     <title>Demandes de rechargement</title>
@@ -87,6 +88,7 @@
                             </div>
 
                             <div class="row">
+                                <% if (appUser.isAdmin()) { %>
                                 <div class="col-sm-6 mb-5">
                                     <input type="text" name="clientName" class="form-control" placeholder="Client"
                                         <% if (reloadFilter != null && reloadFilter.getClientName() != null) { %>
@@ -94,6 +96,7 @@
                                         <% } %>
                                     >
                                 </div>
+                                <% } %>
                                 <div class="col-sm-6 mb-5">
                                     <select name="statusId" class="form-select"
                                             data-control="select2" data-placeholder="Status"
@@ -137,17 +140,29 @@
                             <td><%=reloadRequest.getAmount()%> Ar</td>
                             <td><%=reloadRequest.getDate()%></td>
                             <td style="color: <%=reloadRequest.getStatus().getColor()%>"><%=reloadRequest.getStatus().getName()%></td>
-<%--                            <td>--%>
-<%--                                <a href="${pageContext.request.contextPath}/reload/requests/update/<%= reloadRequest.getId() %>" >--%>
-<%--                                    <i class="la la-pencil text-warning fs-2x"></i>--%>
-<%--                                </a>--%>
-<%--                            </td>--%>
-<%--                            <td>--%>
-<%--                                <a href="#" onclick="onDeleteButtonClicked(<%= reloadRequest.getId() %>, '<%= reloadRequest.getDuration() %>', '${pageContext.request.contextPath}/reload/requests/delete/<%=reloadRequest.getId()%>', 'la durée')"--%>
-<%--                                   data-bs-target="#delete-modal" data-bs-toggle="modal">--%>
-<%--                                    <i class="la la-trash text-danger fs-2x"></i>--%>
-<%--                                </a>--%>
-<%--                            </td>--%>
+
+                            <% if (appUser.isAdmin()) { %>
+                                <% if (reloadRequest.getStatus().getId() == 0L) { %>
+                                    <td>
+                                        <a href="${pageContext.request.contextPath}/reload/requests/update/<%= reloadRequest.getId() %>" >
+                                            <i class="la la-pencil text-warning fs-2x"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" onclick="onDeleteButtonClicked(<%= reloadRequest.getId() %>, '<%= reloadRequest.getClient().getName() %>', '${pageContext.request.contextPath}/reload/refuse/<%=reloadRequest.getId()%>', '')"
+                                           data-bs-target="#delete-modal" data-bs-toggle="modal">
+                                            <i class="la la-close text-danger fs-2x"></i>
+                                        </a>
+                                    </td>
+                                <% } else if (reloadRequest.getStatus().getId() == 10L) { %>
+                                    <td>
+                                        <a href="#" onclick="onRestoreButtonClicked(<%= reloadRequest.getId() %>, '<%= reloadRequest.getClient().getName() %>', '${pageContext.request.contextPath}/reload/restore/<%=reloadRequest.getId()%>')"
+                                           data-bs-target="#restore-modal" data-bs-toggle="modal">
+                                            <i class="la la-undo text-primary fs-2x"></i>
+                                        </a>
+                                    </td>
+                                <% } %>
+                            <% } %>
                         </tr>
                         <% } %>
                         </tbody>
@@ -186,8 +201,11 @@
     </div>
     <!--end:content-->
 </div>
-<%@include file="../includes/delete.jsp"%>
+<%@include file="../includes/refuse.jsp"%>
+<%@include file="../includes/restore.jsp"%>
 
 <!--end::main-->
 <script src="${pageContext.request.contextPath}/assets/custom/elementDelete.js"></script>
+<script src="${pageContext.request.contextPath}/assets/custom/elementRestore.js"></script>
+
 <%@include file="../includes/layouts/default/bottom.jsp"%>
