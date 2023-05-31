@@ -5,8 +5,8 @@
 <%@ page import="com.eval1.models.loan.LoanRequest" %>
 <%@ page import="com.eval1.models.loan.LoanFilter" %>
 <%@ page import="com.eval1.models.Status" %>
+<%@ page import="com.eval1.models.appUser.AppUser" %>
 
-<%@include file="../includes/layouts/default/top.jsp"%>
 <%
     List<LoanRequest> requests = (List<LoanRequest>) request.getAttribute("requests");
     Integer requiredPages = (Integer) request.getAttribute("requiredPages");
@@ -21,6 +21,11 @@
     List<Status> status = (List<Status>) request.getAttribute("status");
     AppUser appUser = (AppUser) session.getAttribute("appUser");
 %>
+<% if (appUser.isAdmin()) { %>
+    <%@include file="../includes/layouts/default/top.jsp"%>
+<% } else { %>
+    <%@include file="../includes/layouts/default/top-client.jsp"%>
+<% } %>
 <head>
     <title>Demandes de pret</title>
 </head>

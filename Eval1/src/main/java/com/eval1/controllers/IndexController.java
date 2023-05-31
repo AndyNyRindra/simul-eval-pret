@@ -27,10 +27,8 @@ public class IndexController {
         if (session.getAttribute("appUser") != null) {
             AppUser appUser = (AppUser) session.getAttribute("appUser");
             appUser.setSolde(vSoldeService.getSolde(appUser.getId()));
-            if (appUser.isAdmin())
-                return "index";
-            else
-                return "redirect:/loan/request/create";
+
+            return "redirect:/loan/requests";
         }
         return null;
     }
