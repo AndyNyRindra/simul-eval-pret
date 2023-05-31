@@ -4,10 +4,7 @@ import com.eval1.repositories.RateRepo;
 import custom.springutils.service.CrudService;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Service;
-import java.sql.Date;
-import java.math.BigDecimal;
-import java.lang.Integer;
-import com.eval1.models.Rate;
+import com.eval1.models.rate.Rate;
 
 
 @Service
@@ -21,5 +18,10 @@ public class RateService extends CrudService<Rate, RateRepo> {
     public Class<Rate> getEntityClass() {
         return Rate.class;
     }
+
+    public Integer getRequiredPages (Long count) {
+        return (int) Math.ceil((double)count / (double)getPageSize());
+    }
+
 
 }
