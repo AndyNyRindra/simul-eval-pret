@@ -20,5 +20,6 @@ import java.lang.Integer;
 public class Status extends HasId {
 
 	private String name;
+	private String color;
 
 }

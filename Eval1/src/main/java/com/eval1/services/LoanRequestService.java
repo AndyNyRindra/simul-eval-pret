@@ -32,6 +32,11 @@ public class LoanRequestService extends CrudService<LoanRequest, LoanRequestRepo
         return LoanRequest.class;
     }
 
+    public Integer getRequiredPages (Long count) {
+        return (int) Math.ceil((double)count / (double)getPageSize());
+    }
+
+
     public Boolean isRequestValid(LoanRequest loanRequest) throws CustomException {
         MaxAmount maxAmount = maxAmountRepo.findLast(loanRequest.getDate());
         if (maxAmount != null && loanRequest.getAmount() > maxAmount.getAmount()) {

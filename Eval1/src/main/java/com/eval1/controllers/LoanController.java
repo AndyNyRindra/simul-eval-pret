@@ -1,21 +1,21 @@
 package com.eval1.controllers;
 
 import com.eval1.models.appUser.AppUser;
+import com.eval1.models.loan.LoanFilter;
 import com.eval1.models.loan.LoanInput;
 import com.eval1.models.loan.LoanRequest;
+import com.eval1.models.maxAmount.MaxAmountFilter;
 import com.eval1.models.maxAmount.MaxAmountInput;
 import com.eval1.security.SecurityManager;
 import com.eval1.services.DurationService;
 import com.eval1.services.LoanRequestService;
+import com.eval1.services.StatusService;
 import custom.springutils.util.ListResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -30,6 +30,9 @@ public class LoanController {
 
     @Autowired
     private DurationService durationService;
+
+    @Autowired
+    private StatusService statusService;
 
     @Autowired
     private HttpSession session;
@@ -59,5 +62,19 @@ public class LoanController {
 
         }
 
+    }
+
+    @GetMapping("/requests")
+    public ModelAndView list(ModelAndView modelAndView, LoanFilter loanFilter, @RequestParam(required = false) Integer page) throws Exception {
+        securityManager.isConnected();
+        if (page == null) page = 1;
+        ListResponse requests = loanRequestService.search(loanFilter, page);
+        modelAndView.addObject("requiredPages", loanRequestService.getRequiredPages(requests.getCount()));
+        modelAndView.addObject("requests",requests.getElements());
+        modelAndView.addObject("status", statusService.findAll());
+        modelAndView.addObject("page", page);
+        if (loanFilter != null) modelAndView.addObject("loanFilter", loanFilter);
+        modelAndView.setViewName("loan/list-requests");
+        return modelAndView;
     }
 }
