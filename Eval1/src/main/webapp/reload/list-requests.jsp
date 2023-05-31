@@ -64,9 +64,11 @@
                 <div class="card-header align-items-center py-0 gap-2">
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5" data-select2-id="select2-data-123-mzxj">
                         <!--begin::Add product-->
+                        <% if(!appUser.isAdmin()) { %>
                         <a href="${pageContext.request.contextPath}/reload/request/create" class="btn btn-success">
                             Ajouter une demande
                         </a>
+                        <% } %>
                         <!--end::Add product-->
                     </div>
                 </div>

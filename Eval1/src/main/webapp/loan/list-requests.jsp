@@ -62,9 +62,11 @@
                 <div class="card-header align-items-center py-0 gap-2">
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5" data-select2-id="select2-data-123-mzxj">
                         <!--begin::Add product-->
+                        <% if(!appUser.isAdmin()) { %>
                         <a href="${pageContext.request.contextPath}/loan/request/create" class="btn btn-success">
                             Ajouter une demande
                         </a>
+                        <% } %>
                         <!--end::Add product-->
                     </div>
                 </div>
@@ -134,7 +136,9 @@
                             <th>Date</th>
                             <th>Durée</th>
                             <th>Taux</th>
+                            <th>Début remboursement</th>
                             <th>Status</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -148,15 +152,23 @@
                                 <%= loanRequest.getDuration().getDuration() %> Mois
                             </td>
                             <td><%=loanRequest.getRate()%> %</td>
+                            <td>
+                                <% if(loanRequest.getStartReimbursement() != null) { %>
+                                <%=loanRequest.getStartReimbursement()%>
+                                <% } else { %>
+                                <span class="badge badge-light-danger">Non défini</span>
+                                <% } %>
+                            </td>
                             <td style="color: <%=loanRequest.getStatus().getColor()%>"><%=loanRequest.getStatus().getName()%></td>
 
                             <% if (appUser.isAdmin()) { %>
                                 <% if (loanRequest.getStatus().getId() == 0L) { %>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/loan/requests/update/<%= loanRequest.getId() %>" >
-                                            <i class="la la-pencil text-warning fs-2x"></i>
-                                        </a>
-                                    </td>
+                                <td>
+                                    <a href="#" onclick="onAcceptButtonClicked(<%= loanRequest.getId() %>, '<%= loanRequest.getClient().getName() %>', '${pageContext.request.contextPath}/loan/accept/<%=loanRequest.getId()%>')"
+                                       data-bs-target="#accept-modal" data-bs-toggle="modal">
+                                        <i class="la la-check text-success fs-2x"></i>
+                                    </a>
+                                </td>
                                     <td>
                                         <a href="#" onclick="onDeleteButtonClicked(<%= loanRequest.getId() %>, '<%= loanRequest.getClient().getName() %>', '${pageContext.request.contextPath}/loan/refuse/<%=loanRequest.getId()%>', '')"
                                            data-bs-target="#delete-modal" data-bs-toggle="modal">
@@ -205,6 +217,57 @@
 </div>
 <%@include file="../includes/refuse.jsp"%>
 
+<div class="modal fade" tabindex="-1" id="accept-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Accepter</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark fs-1"></i>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <form method="post" id="accept-form">
+                <div class="modal-body">
+                    <div class="mb-5">
+                        <label>Accepté le :</label>
+                        <input type="date" name="date" class="form-control" required
+                        >
+                    </div>
+
+                    <div class="mb-5">
+                        <label>Début du remboursement :</label>
+                        <input type="date" name="startReimbursement" class="form-control" required
+                        >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-success" id="accept-url">Accepter</button>
+                </div>
+            </form>
+
+            <script>
+                const form = document.getElementById('accept-form');
+
+                form.addEventListener('submit', function(evnt) {
+                    evnt.preventDefault();
+                    const formData = new FormData(form);
+                    send(formData, form.action, "${pageContext.request.contextPath}/loan/requests")
+                });
+            </script>
+
+
+
+        </div>
+    </div>
+</div>
+
 <!--end::main-->
 <script src="${pageContext.request.contextPath}/assets/custom/elementDelete.js"></script>
+<script src="${pageContext.request.contextPath}/assets/custom/elementAccept.js"></script>
+
 <%@include file="../includes/layouts/default/bottom.jsp"%>

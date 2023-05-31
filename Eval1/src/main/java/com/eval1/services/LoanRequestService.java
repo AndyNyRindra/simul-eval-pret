@@ -1,17 +1,22 @@
 package com.eval1.services;
 
+import com.eval1.models.Movement;
 import com.eval1.models.Status;
 import com.eval1.models.maxAmount.MaxAmount;
 import com.eval1.models.rate.Rate;
+import com.eval1.models.reload.ReloadRequest;
 import com.eval1.repositories.LoanRequestRepo;
 import com.eval1.repositories.MaxAmountRepo;
 import com.eval1.repositories.RateRepo;
 import custom.springutils.exception.CustomException;
 import custom.springutils.service.CrudService;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.eval1.models.loan.LoanRequest;
+
+import java.sql.Date;
 
 
 @Service
@@ -22,6 +27,9 @@ public class LoanRequestService extends CrudService<LoanRequest, LoanRequestRepo
 
     @Autowired
     private RateRepo rateRepo;
+
+    @Autowired
+    private MovementService movementService;
 
     public LoanRequestService(LoanRequestRepo repo, EntityManager manager) {
         super(repo, manager);
@@ -64,5 +72,19 @@ public class LoanRequestService extends CrudService<LoanRequest, LoanRequestRepo
         status.setId(statusId);
         obj.setStatus(status);
         return super.update(obj);
+    }
+
+    @Transactional(rollbackOn = {Exception.class})
+    public LoanRequest accept(Long id, Date date, Date startReimbursement) throws Exception {
+        LoanRequest loanRequest = updateStatus(id, 20L);
+        loanRequest.setStartReimbursement(startReimbursement);
+        super.update(loanRequest);
+        Movement movement = new Movement();
+        movement.setAmount(loanRequest.getAmount());
+        movement.setClientId(loanRequest.getClient().getId().intValue());
+        movement.setMoveTypeId(0);
+        movement.setDate(date);
+        movementService.create(movement);
+        return loanRequest;
     }
 }
