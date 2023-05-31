@@ -144,8 +144,9 @@
                             <% if (appUser.isAdmin()) { %>
                                 <% if (reloadRequest.getStatus().getId() == 0L) { %>
                                     <td>
-                                        <a href="${pageContext.request.contextPath}/reload/requests/update/<%= reloadRequest.getId() %>" >
-                                            <i class="la la-pencil text-warning fs-2x"></i>
+                                        <a href="#" onclick="onAcceptButtonClicked(<%= reloadRequest.getId() %>, '<%= reloadRequest.getClient().getName() %>', '${pageContext.request.contextPath}/reload/accept/<%=reloadRequest.getId()%>')"
+                                           data-bs-target="#accept-modal" data-bs-toggle="modal">
+                                            <i class="la la-check text-success fs-2x"></i>
                                         </a>
                                     </td>
                                     <td>
@@ -203,9 +204,54 @@
 </div>
 <%@include file="../includes/refuse.jsp"%>
 <%@include file="../includes/restore.jsp"%>
+<%--<%@include file="../includes/accept.jsp"%>--%>
+
+<div class="modal fade" tabindex="-1" id="accept-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Accepter</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark fs-1"></i>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <form method="post" id="accept-form">
+                <div class="modal-body">
+                    <div class="mb-5">
+                        <label>Accepté le :</label>
+                        <input type="date" name="date" class="form-control" required
+                        >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-success" id="accept-url">Accepter</button>
+                </div>
+            </form>
+
+            <script>
+                const form = document.getElementById('accept-form');
+
+                form.addEventListener('submit', function(evnt) {
+                    evnt.preventDefault();
+                    const formData = new FormData(form);
+                    send(formData, form.action, "${pageContext.request.contextPath}/reload/requests")
+                });
+            </script>
+
+
+
+        </div>
+    </div>
+</div>
 
 <!--end::main-->
 <script src="${pageContext.request.contextPath}/assets/custom/elementDelete.js"></script>
 <script src="${pageContext.request.contextPath}/assets/custom/elementRestore.js"></script>
+<script src="${pageContext.request.contextPath}/assets/custom/elementAccept.js"></script>
 
 <%@include file="../includes/layouts/default/bottom.jsp"%>
