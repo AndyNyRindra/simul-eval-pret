@@ -2,6 +2,7 @@ package com.eval1.controllers;
 
 import com.eval1.models.duration.Duration;
 import com.eval1.models.duration.DurationFilter;
+import com.eval1.models.duration.DurationInput;
 import com.eval1.security.SecurityManager;
 import com.eval1.services.DurationService;
 import custom.springutils.util.ListResponse;
@@ -29,10 +30,10 @@ public class DurationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@ModelAttribute Duration maxDuration) throws Exception {
+    public ResponseEntity<?> save(@ModelAttribute DurationInput maxDuration) throws Exception {
         securityManager.isAdmin();
         try {
-            durationService.create(maxDuration);
+            durationService.create(maxDuration.getDuration());
             return ResponseEntity.ok("success");
 
         } catch (Exception e) {
@@ -53,12 +54,13 @@ public class DurationController {
     }
 
     @PostMapping("{id}")
-    public ResponseEntity<?> update(@ModelAttribute Duration maxDuration, @PathVariable Long id) throws Exception {
+    public ResponseEntity<?> update(@ModelAttribute DurationInput maxDuration, @PathVariable Long id) throws Exception {
         securityManager.isAdmin();
         try {
-
-            maxDuration.setId(id);
-            durationService.update(maxDuration);
+            Duration duration = maxDuration.getDuration();
+            duration.setId(id);
+            duration.setDeleted(false);
+            durationService.update(duration);
             return ResponseEntity.ok("success");
 
         } catch (Exception e) {

@@ -3,6 +3,7 @@ package com.eval1.controllers;
 import com.eval1.models.maxAmount.MaxAmountFilter;
 import com.eval1.models.rate.Rate;
 import com.eval1.models.rate.RateFilter;
+import com.eval1.models.rate.RateInput;
 import com.eval1.security.SecurityManager;
 import com.eval1.services.RateService;
 import custom.springutils.util.ListResponse;
@@ -30,10 +31,10 @@ public class RateController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@ModelAttribute Rate rate) throws Exception {
+    public ResponseEntity<?> save(@ModelAttribute RateInput rate) throws Exception {
         securityManager.isAdmin();
         try {
-            rateService.create(rate);
+            rateService.create(rate.getRate());
             return ResponseEntity.ok("success");
 
         } catch (Exception e) {

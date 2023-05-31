@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 @Setter
 public class RateFilter extends FilterObject {
 
-    private BigDecimal mineq_rate;
-    private BigDecimal maxeq_rate;
+    private Double mineq_rate;
+    private Double maxeq_rate;
 
     public RateFilter() {
         setField("date");

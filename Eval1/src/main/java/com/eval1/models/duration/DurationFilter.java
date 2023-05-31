@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 @Setter
 public class DurationFilter extends FilterObject {
 
-    private BigDecimal mineq_duration;
-    private BigDecimal maxeq_duration;
+    private Double mineq_duration;
+    private Double maxeq_duration;
 
     public DurationFilter() {
         setField("duration");

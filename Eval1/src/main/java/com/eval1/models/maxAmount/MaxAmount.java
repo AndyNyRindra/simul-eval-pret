@@ -21,6 +21,6 @@ import java.lang.Integer;
 public class MaxAmount extends HasId {
 
 	private Date date;
-	private BigDecimal amount;
+	private Double amount;
 
 }

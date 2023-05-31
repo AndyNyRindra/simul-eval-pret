@@ -21,6 +21,6 @@ import java.lang.Integer;
 public class Rate extends HasId {
 
 	private Date date;
-	private BigDecimal rate;
+	private Double rate;
 
 }

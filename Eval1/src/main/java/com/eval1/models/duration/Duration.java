@@ -16,6 +16,6 @@ import java.math.BigDecimal;
 @Table(name = "duration")
 public class Duration extends HasDeleted {
 
-	private BigDecimal duration;
+	private Double duration;
 
 }

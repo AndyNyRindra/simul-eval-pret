@@ -1,14 +1,14 @@
 <%@ page import="com.eval1.models.duration.Duration" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
-    Duration duration = (Duration) request.getAttribute("duration");
+    AppUser appUser = (AppUser) request.getAttribute("appUser");
     String id = "";
-    if (duration != null) {
-        id += "/" + duration.getId();
+    if (appUser != null) {
+        id += "/" + appUser.getId();
     }
 %>
 <head>
-    <title>Durées</title>
+    <title>Clients</title>
 </head>
 <!--begin::main-->
 <div class="d-flex flex-column flex-column-fluid">
@@ -17,11 +17,11 @@
         <div class="app-container container-xxl d-flex flex-stack">
             <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                 <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">
-                    Durée
+                    Client
                 </h1>
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                     <li class="breadcrumb-item text-muted">
-                        Durée
+                        Client
                     </li>
                     <li class="breadcrumb-item">
                         <span class="bullet bg-gray-400 w-5px h-2px"></span>
@@ -47,11 +47,20 @@
                 <div class="card-body pt-0">
                     <form id="form" method="post" >
                         <div class="mb-5">
-                            <label>Durée en mois :</label>
-                            <input type="number" name="duration" class="form-control" required
-                            <% if (duration!= null) { %>
-                                value="<%= duration.getDuration() %>"
-                            <% } %>
+                            <label>Nom :</label>
+                            <input type="text" name="name" class="form-control" required
+                                <% if (appUser!= null) { %>
+                                   value="<%= appUser.getName() %>"
+                                <% } %>
+                            >
+                        </div>
+
+                        <div class="mb-5">
+                            <label>Email :</label>
+                            <input type="email" name="email" class="form-control" required
+                                <% if (appUser!= null) { %>
+                                   value="<%= appUser.getEmail() %>"
+                                <% } %>
                             >
                         </div>
 
@@ -67,7 +76,7 @@
                         form.addEventListener('submit', function(evnt) {
                             evnt.preventDefault();
                             const formData = new FormData(form);
-                            send(formData, "${pageContext.request.contextPath}/durations<%=id%>", "${pageContext.request.contextPath}/durations")
+                            send(formData, "${pageContext.request.contextPath}/app-user<%=id%>", "${pageContext.request.contextPath}/app-user")
                         });
                     </script>
                 </div>

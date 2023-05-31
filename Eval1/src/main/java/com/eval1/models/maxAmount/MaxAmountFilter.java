@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 @Setter
 public class MaxAmountFilter extends FilterObject {
 
-    private BigDecimal mineq_amount;
-    private BigDecimal maxeq_amount;
+    private Double mineq_amount;
+    private Double maxeq_amount;
 
     public MaxAmountFilter() {
         setField("date");

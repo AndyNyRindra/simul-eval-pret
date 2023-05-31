@@ -3,6 +3,7 @@ package com.eval1.controllers;
 import com.eval1.models.duration.DurationFilter;
 import com.eval1.models.maxAmount.MaxAmount;
 import com.eval1.models.maxAmount.MaxAmountFilter;
+import com.eval1.models.maxAmount.MaxAmountInput;
 import com.eval1.security.SecurityManager;
 import com.eval1.services.MaxAmountService;
 import custom.springutils.util.ListResponse;
@@ -30,10 +31,10 @@ public class MaxAmountController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@ModelAttribute MaxAmount maxAmount) throws Exception {
+    public ResponseEntity<?> save(@ModelAttribute MaxAmountInput maxAmount) throws Exception {
         securityManager.isAdmin();
         try {
-            maxAmountService.create(maxAmount);
+            maxAmountService.create(maxAmount.getMaxAmount());
             return ResponseEntity.ok("success");
 
         } catch (Exception e) {
