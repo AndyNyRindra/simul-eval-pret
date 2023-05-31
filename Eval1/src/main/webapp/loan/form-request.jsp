@@ -1,7 +1,7 @@
 <%@ page import="com.eval1.models.duration.Duration" %>
 <%@ page import="com.eval1.models.maxAmount.MaxAmount" %>
 <%@ page import="java.util.*" %>
-<%@include file="../includes/layouts/default/top.jsp"%>
+<%@include file="../includes/layouts/default/top-client.jsp"%>
 <%
     List<Duration> durations = (List<Duration>) request.getAttribute("durations");
 %>

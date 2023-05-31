@@ -1,10 +1,14 @@
 package com.eval1.controllers;
 
+import com.eval1.models.appUser.AppUser;
+import com.eval1.models.loan.LoanInput;
+import com.eval1.models.loan.LoanRequest;
 import com.eval1.models.maxAmount.MaxAmountInput;
 import com.eval1.security.SecurityManager;
 import com.eval1.services.DurationService;
 import com.eval1.services.LoanRequestService;
 import custom.springutils.util.ListResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,6 +31,9 @@ public class LoanController {
     @Autowired
     private DurationService durationService;
 
+    @Autowired
+    private HttpSession session;
+
     @GetMapping("/request/create")
     public ModelAndView loadCreateForm(ModelAndView modelAndView) throws Exception {
         securityManager.isCLient();
@@ -36,11 +43,14 @@ public class LoanController {
         return modelAndView;
     }
 
-    @PostMapping
-    public ResponseEntity<?> save(@ModelAttribute MaxAmountInput maxAmount) throws Exception {
-        securityManager.isAdmin();
+    @PostMapping("/request")
+    public ResponseEntity<?> save(@ModelAttribute LoanInput loanInput) throws Exception {
+        securityManager.isCLient();
         try {
-            maxAmountService.create(maxAmount.getMaxAmount());
+            LoanRequest loanRequest = loanInput.getLoanRequest();
+            AppUser appUser = (AppUser) session.getAttribute("appUser");
+            loanRequest.setClient(appUser);
+            loanRequestService.create(loanRequest);
             return ResponseEntity.ok("success");
 
         } catch (Exception e) {

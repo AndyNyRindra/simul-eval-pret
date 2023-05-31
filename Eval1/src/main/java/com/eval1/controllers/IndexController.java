@@ -30,7 +30,7 @@ public class IndexController {
             if (appUser.isAdmin())
                 return "index";
             else
-                return "index";
+                return "redirect:/loan/request/create";
         }
         return null;
     }
