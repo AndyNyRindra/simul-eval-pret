@@ -80,4 +80,20 @@ public class LoanController {
         modelAndView.setViewName("loan/list-requests");
         return modelAndView;
     }
+
+    @GetMapping("/refuse/{id}")
+    public ResponseEntity<?> refuse(@PathVariable Long id) throws Exception {
+        securityManager.isAdmin();
+        try {
+
+            loanRequestService.updateStatus(id, 10L);
+            return ResponseEntity.ok("success");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        }
+
+    }
 }

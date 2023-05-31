@@ -57,4 +57,12 @@ public class LoanRequestService extends CrudService<LoanRequest, LoanRequestRepo
         }
         return null;
     }
+
+    public LoanRequest updateStatus(Long id, Long statusId) throws Exception {
+        LoanRequest obj = findById(id);
+        Status status = new Status();
+        status.setId(statusId);
+        obj.setStatus(status);
+        return super.update(obj);
+    }
 }

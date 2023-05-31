@@ -144,17 +144,22 @@
                             </td>
                             <td><%=loanRequest.getRate()%> %</td>
                             <td style="color: <%=loanRequest.getStatus().getColor()%>"><%=loanRequest.getStatus().getName()%></td>
-                            <td>
-                                <a href="${pageContext.request.contextPath}/loan/requests/update/<%= loanRequest.getId() %>" >
-                                    <i class="la la-pencil text-warning fs-2x"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="#" onclick="onDeleteButtonClicked(<%= loanRequest.getId() %>, '<%= loanRequest.getDuration() %>', '${pageContext.request.contextPath}/loan/requests/delete/<%=loanRequest.getId()%>', 'la durée')"
-                                   data-bs-target="#delete-modal" data-bs-toggle="modal">
-                                    <i class="la la-trash text-danger fs-2x"></i>
-                                </a>
-                            </td>
+
+                            <% if (appUser.isAdmin()) { %>
+                                <% if (loanRequest.getStatus().getId() == 0L) { %>
+                                    <td>
+                                        <a href="${pageContext.request.contextPath}/loan/requests/update/<%= loanRequest.getId() %>" >
+                                            <i class="la la-pencil text-warning fs-2x"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" onclick="onDeleteButtonClicked(<%= loanRequest.getId() %>, '<%= loanRequest.getClient().getName() %>', '${pageContext.request.contextPath}/loan/refuse/<%=loanRequest.getId()%>', '')"
+                                           data-bs-target="#delete-modal" data-bs-toggle="modal">
+                                            <i class="la la-close text-danger fs-2x"></i>
+                                        </a>
+                                    </td>
+                                <% } %>
+                            <% } %>
                         </tr>
                         <% } %>
                         </tbody>
@@ -194,9 +199,7 @@
     <!--end:content-->
 </div>
 <%@include file="../includes/refuse.jsp"%>
-<%@include file="../includes/restore.jsp"%>
 
 <!--end::main-->
 <script src="${pageContext.request.contextPath}/assets/custom/elementDelete.js"></script>
-<script src="${pageContext.request.contextPath}/assets/custom/elementRestore.js"></script>
 <%@include file="../includes/layouts/default/bottom.jsp"%>
