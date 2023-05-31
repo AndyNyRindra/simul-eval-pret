@@ -45,7 +45,11 @@
 
                     <!--begin::User menu-->
                     <div class="app-navbar-item ms-1 ms-md-3" id="kt_header_user_menu_toggle" >
-                        <span style="margin-right: 10px" ><%= user.getName() %></span>
+                        <span style="margin-right: 10px" ><%= user.getName() %>
+                        <% if (user.getSolde() > 0) { %>
+                             - <%= user.getSolde() %> Ar
+                        <% } %>
+                        </span>
                         <!--begin::Menu wrapper-->
                         <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
                              data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"

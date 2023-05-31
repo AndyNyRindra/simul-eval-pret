@@ -33,6 +33,9 @@ public class AppUser extends HasDeleted implements LoginEntity {
 	@JoinColumn(name = "role_id")
 	private Role role;
 
+	@Transient
+	private Double solde;
+
 	public Boolean isAdmin() {
 		return role.getId().equals(10L);
 	}
