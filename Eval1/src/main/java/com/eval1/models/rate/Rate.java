@@ -1,5 +1,6 @@
 package com.eval1.models.rate;
 
+import custom.springutils.exception.CustomException;
 import custom.springutils.model.HasId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -22,5 +23,11 @@ public class Rate extends HasId {
 
 	private Date date;
 	private Double rate;
+
+	public void setRate(Double amount) throws CustomException {
+		if (amount <= 0)
+			throw new CustomException("Le taux doit être supérieur à 0");
+		this.rate = amount;
+	}
 
 }
