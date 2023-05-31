@@ -9,8 +9,7 @@
 
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
-    ListResponse rates = (ListResponse) request.getAttribute("rates");
-    List<Rate> rateList = (List<Rate>) rates.getElements();
+    List<Rate> rateList = (List<Rate>) request.getAttribute("rates");
     Integer requiredPages = (Integer) request.getAttribute("requiredPages");
     Integer pageNumber = (Integer) request.getAttribute("page");
     RateFilter rateFilter = (RateFilter) request.getAttribute("rateFilter");

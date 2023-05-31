@@ -7,8 +7,7 @@
 
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
-    ListResponse maxAmounts = (ListResponse) request.getAttribute("maxAmounts");
-    List<MaxAmount> amounts = (List<MaxAmount>) maxAmounts.getElements();
+    List<MaxAmount> amounts = (List<MaxAmount>) request.getAttribute("maxAmounts");
     Integer requiredPages = (Integer) request.getAttribute("requiredPages");
     Integer pageNumber = (Integer) request.getAttribute("page");
     MaxAmountFilter maxAmountFilter = (MaxAmountFilter) request.getAttribute("maxAmountFilter");

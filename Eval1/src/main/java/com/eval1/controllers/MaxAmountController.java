@@ -51,7 +51,7 @@ public class MaxAmountController {
         if (page == null) page = 1;
         ListResponse maxAmounts = maxAmountService.search(maxAmountFilter, page);
         modelAndView.addObject("requiredPages", maxAmountService.getRequiredPages(maxAmounts.getCount()));
-        modelAndView.addObject("maxAmounts",maxAmounts);
+        modelAndView.addObject("maxAmounts",maxAmounts.getElements());
         modelAndView.addObject("page", page);
         if (maxAmountFilter != null) modelAndView.addObject("maxAmountFilter", maxAmountFilter);
         modelAndView.setViewName("max-amount/list");

@@ -51,7 +51,7 @@ public class RateController {
         if (page == null) page = 1;
         ListResponse rates = rateService.search(rateFilter, page);
         modelAndView.addObject("requiredPages", rateService.getRequiredPages(rates.getCount()));
-        modelAndView.addObject("rates",rates);
+        modelAndView.addObject("rates",rates.getElements());
         modelAndView.addObject("page", page);
         if (rateFilter != null) modelAndView.addObject("rateFilter", rateFilter);
         modelAndView.setViewName("rate/list");

@@ -5,8 +5,7 @@
 
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
-    ListResponse durations = (ListResponse) request.getAttribute("durations");
-    List<Duration> durationList = (List<Duration>) durations.getElements();
+    List<Duration> durationList = (List<Duration>) request.getAttribute("durations");
     Integer requiredPages = (Integer) request.getAttribute("requiredPages");
     Integer pageNumber = (Integer) request.getAttribute("page");
     DurationFilter durationFilter = (DurationFilter) request.getAttribute("durationFilter");

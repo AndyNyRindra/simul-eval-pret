@@ -77,7 +77,7 @@ public class DurationController {
         if (page == null) page = 1;
         ListResponse durations = durationService.search(durationFilter, page);
         modelAndView.addObject("requiredPages", durationService.getRequiredPages(durations.getCount()));
-        modelAndView.addObject("durations",durations);
+        modelAndView.addObject("durations",durations.getElements());
         modelAndView.addObject("page", page);
         if (durationFilter != null) modelAndView.addObject("durationFilter", durationFilter);
         modelAndView.setViewName("durations/list");

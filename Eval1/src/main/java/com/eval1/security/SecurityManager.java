@@ -23,7 +23,7 @@ public class SecurityManager {
         check("appUser", 10);
     }
 
-    public void isAuthor() throws UnauthorizedException {
+    public void isCLient() throws UnauthorizedException {
         isConnected();
         check("appUser", 0);
     }

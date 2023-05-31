@@ -6,8 +6,7 @@
 
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
-    ListResponse users = (ListResponse) request.getAttribute("users");
-    List<AppUser> clients = (List<AppUser>) users.getElements();
+    List<AppUser> clients = (List<AppUser>) request.getAttribute("users");
     Integer requiredPages = (Integer) request.getAttribute("requiredPages");
     Integer pageNumber = (Integer) request.getAttribute("page");
     AppUserFilter appUserFilter = (AppUserFilter) request.getAttribute("appUserFilter");

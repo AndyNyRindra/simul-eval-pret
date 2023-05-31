@@ -75,7 +75,7 @@ public class AppUserController {
         if (page == null) page = 1;
         ListResponse users = appUserService.search(appUserFilter, page);
         modelAndView.addObject("requiredPages", appUserService.getRequiredPages(users.getCount()));
-        modelAndView.addObject("users",users);
+        modelAndView.addObject("users",users.getElements());
         modelAndView.addObject("page", page);
         if (appUserFilter != null) modelAndView.addObject("appUserFilter", appUserFilter);
         modelAndView.setViewName("app-user/list");
