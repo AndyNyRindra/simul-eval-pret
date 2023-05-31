@@ -54,7 +54,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a href="${pageContext.request.contextPath}/durations-max" class="menu-link">
+                            <a href="${pageContext.request.contextPath}/durations" class="menu-link">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -62,7 +62,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a href="${pageContext.request.contextPath}/durations-max/create" class="menu-link">
+                            <a href="${pageContext.request.contextPath}/durations/create" class="menu-link">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

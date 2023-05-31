@@ -1,7 +1,7 @@
-<%@ page import="com.eval1.models.MaxDuration" %>
+<%@ page import="com.eval1.models.Duration" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
-    MaxDuration maxDuration = (MaxDuration) request.getAttribute("maxDuration");
+    Duration maxDuration = (Duration) request.getAttribute("maxDuration");
     String id = "";
     if (maxDuration != null) {
         id += maxDuration.getId();
@@ -47,7 +47,7 @@
                 <div class="card-body pt-0">
                     <form id="form" method="post" >
                         <div class="mb-5">
-                            <label>Durée en jours :</label>
+                            <label>Durée en mois :</label>
                             <input type="text" name="duration" class="form-control" required
                             <% if (maxDuration!= null) { %>
                                 value="<%= maxDuration.getDuration() %>"
@@ -55,14 +55,6 @@
                             >
                         </div>
 
-                        <div class="mb-5">
-                            <label>Date :</label>
-                            <input type="date" name="date" class="form-control" required
-                            <% if (maxDuration!= null) { %>
-                                value="<%= maxDuration.getDate() %>"
-                            <% } %>
-                            >
-                        </div>
                         <p>
                             <input type="reset" value="Effacer" class="btn btn-reset">
                             <input type="submit" value="Envoyer" class="btn btn-primary">
@@ -75,7 +67,7 @@
                         form.addEventListener('submit', function(evnt) {
                             evnt.preventDefault();
                             const formData = new FormData(form);
-                            send(formData, "${pageContext.request.contextPath}/durations-max/<%=id%>", "${pageContext.request.contextPath}/durations-max")
+                            send(formData, "${pageContext.request.contextPath}/durations/<%=id%>", "${pageContext.request.contextPath}/durations")
                         });
                     </script>
                 </div>

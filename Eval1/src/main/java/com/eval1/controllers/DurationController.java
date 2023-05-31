@@ -1,9 +1,8 @@
 package com.eval1.controllers;
 
-import com.eval1.models.MaxDuration;
+import com.eval1.models.Duration;
 import com.eval1.security.SecurityManager;
-import com.eval1.services.MaxDurationService;
-import custom.springutils.util.ListResponse;
+import com.eval1.services.DurationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,24 +10,24 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/durations-max")
-public class MaxDurationController {
+@RequestMapping("/durations")
+public class DurationController {
 
     @Autowired
     SecurityManager securityManager;
 
     @Autowired
-    MaxDurationService maxDurationService;
+    DurationService maxDurationService;
 
     @GetMapping("/create")
     public ModelAndView loadCreateForm(ModelAndView modelAndView) throws Exception {
         securityManager.isAdmin();
-        modelAndView.setViewName("durations-max/form");
+        modelAndView.setViewName("durations/form");
         return modelAndView;
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@ModelAttribute MaxDuration maxDuration) throws Exception {
+    public ResponseEntity<?> save(@ModelAttribute Duration maxDuration) throws Exception {
         securityManager.isAdmin();
         try {
             maxDurationService.create(maxDuration);
@@ -45,14 +44,14 @@ public class MaxDurationController {
     @GetMapping("/update/{id}")
     public ModelAndView loadUpdateForm(ModelAndView modelAndView, @PathVariable("id") Long id) throws Exception {
         securityManager.isAdmin();
-        MaxDuration maxDuration = maxDurationService.findById(id);
+        Duration maxDuration = maxDurationService.findById(id);
         modelAndView.addObject("maxDuration", maxDuration);
-        modelAndView.setViewName("durations-max/form");
+        modelAndView.setViewName("durations/form");
         return modelAndView;
     }
 
     @PostMapping("{id}")
-    public ResponseEntity<?> update(@ModelAttribute MaxDuration maxDuration, @PathVariable Long id) throws Exception {
+    public ResponseEntity<?> update(@ModelAttribute Duration maxDuration, @PathVariable Long id) throws Exception {
         securityManager.isAdmin();
         try {
 
