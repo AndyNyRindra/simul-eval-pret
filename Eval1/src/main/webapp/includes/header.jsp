@@ -1,5 +1,5 @@
 <%@ page import="com.eval1.models.LoggedUser" %>
-<%@ page import="com.eval1.models.AppUser" %>
+<%@ page import="com.eval1.models.appUser.AppUser" %>
 
 <%
     AppUser user = (AppUser) session.getAttribute("connected");

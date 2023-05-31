@@ -1,6 +1,6 @@
 package com.eval1.controllers;
 
-import com.eval1.models.AppUser;
+import com.eval1.models.appUser.AppUser;
 import com.eval1.services.AppUserLoginService;
 import custom.springutils.LoginEntity;
 import custom.springutils.service.ServiceLogin;

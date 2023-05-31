@@ -1,7 +1,7 @@
 package com.eval1.controllers;
 
 import com.eval1.exception.UnauthorizedException;
-import com.eval1.models.AppUser;
+import com.eval1.models.appUser.AppUser;
 import com.eval1.security.SecurityManager;
 import com.eval1.services.AppUserLoginService;
 import jakarta.servlet.http.HttpSession;

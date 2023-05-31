@@ -1,5 +1,7 @@
-package com.eval1.models;
+package com.eval1.models.appUser;
 
+import com.eval1.models.HasDeleted;
+import com.eval1.models.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import custom.springutils.LoginEntity;
 import custom.springutils.exception.CustomException;

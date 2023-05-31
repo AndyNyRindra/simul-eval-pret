@@ -1,7 +1,7 @@
 package com.eval1.security;
 
 import com.eval1.exception.UnauthorizedException;
-import com.eval1.models.AppUser;
+import com.eval1.models.appUser.AppUser;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 

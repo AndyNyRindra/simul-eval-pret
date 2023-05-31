@@ -1,13 +1,16 @@
 package com.eval1.services;
 
 import com.eval1.models.Role;
+import com.eval1.models.appUser.AppUserFilter;
 import com.eval1.repositories.AppUserRepo;
-import custom.springutils.service.CrudService;
+import custom.springutils.search.Condition;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Service;
-import java.lang.String;
+
 import java.lang.Integer;
-import com.eval1.models.AppUser;
+import java.util.List;
+
+import com.eval1.models.appUser.AppUser;
 
 
 @Service
@@ -42,5 +45,20 @@ public Integer getRequiredPages (Long count) {
         role.setId(0L);
         obj.setRole(role);
         return super.update(obj);
+    }
+
+    @Override
+    public List<Condition> getAdditionalConditionFrom(Object filter) throws Exception {
+        AppUserFilter appUserFilter = (AppUserFilter) filter;
+        List<Condition> list = super.getAdditionalConditionFrom(appUserFilter);
+        Condition condition = new Condition();
+        condition.setCondition(" and role.id = 0");
+        list.add(condition);
+        if (appUserFilter.getKeyWord() != null) {
+            Condition condition2 = new Condition();
+            condition2.setCondition(" and (name ilike '%" + appUserFilter.getKeyWord() + "%' or email ilike '%" + appUserFilter.getKeyWord() + "%') ");
+            list.add(condition2);
+        }
+        return list;
     }
 }

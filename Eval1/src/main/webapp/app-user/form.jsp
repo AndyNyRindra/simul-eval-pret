@@ -1,4 +1,5 @@
 <%@ page import="com.eval1.models.duration.Duration" %>
+<%@ page import="com.eval1.models.appUser.AppUser" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
     AppUser appUser = (AppUser) request.getAttribute("appUser");

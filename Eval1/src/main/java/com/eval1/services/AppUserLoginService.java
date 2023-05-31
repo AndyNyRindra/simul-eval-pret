@@ -1,7 +1,7 @@
 package com.eval1.services;
 
 import com.eval1.authentication.SessionLoginService;
-import com.eval1.models.AppUser;
+import com.eval1.models.appUser.AppUser;
 import com.eval1.repositories.AppUserRepo;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
