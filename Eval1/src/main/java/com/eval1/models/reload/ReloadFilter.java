@@ -1,4 +1,4 @@
-package com.eval1.models.loan;
+package com.eval1.models.reload;
 
 import com.eval1.models.Status;
 import custom.springutils.search.FilterObject;
@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LoanFilter extends FilterObject {
+public class ReloadFilter extends FilterObject {
 
     private Status status;
 
@@ -24,7 +24,7 @@ public class LoanFilter extends FilterObject {
 
     private Double maxeq_amount;
 
-    public LoanFilter() {
+    public ReloadFilter() {
         setField("date");
         setMethod(OrderMethod.DESC);
     }

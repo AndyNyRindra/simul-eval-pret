@@ -68,7 +68,7 @@
                         form.addEventListener('submit', function(evnt) {
                             evnt.preventDefault();
                             const formData = new FormData(form);
-                            send(formData, "${pageContext.request.contextPath}/reload/request", null)
+                            send(formData, "${pageContext.request.contextPath}/reload/request", "${pageContext.request.contextPath}/reload/requests")
                         });
                     </script>
                 </div>

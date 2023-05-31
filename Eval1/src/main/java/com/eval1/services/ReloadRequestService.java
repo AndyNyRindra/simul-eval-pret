@@ -20,6 +20,11 @@ public class ReloadRequestService extends CrudService<ReloadRequest, ReloadReque
         return ReloadRequest.class;
     }
 
+    public Integer getRequiredPages (Long count) {
+        return (int) Math.ceil((double)count / (double)getPageSize());
+    }
+
+
     @Override
     public ReloadRequest create(ReloadRequest obj) throws Exception {
         Status status = new Status();

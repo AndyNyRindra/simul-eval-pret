@@ -37,6 +37,8 @@ public class LoanRequest extends HasId {
 	@JoinColumn(name = "status")
 	private Status status;
 
+	private Date startReimbursement;
+
 	public void setAmount(Double amount) throws CustomException {
 		if (amount <= 0) {
 			throw new CustomException("Le montant doit être supérieur à 0");
