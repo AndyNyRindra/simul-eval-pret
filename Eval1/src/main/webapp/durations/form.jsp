@@ -1,10 +1,10 @@
-<%@ page import="com.eval1.models.Duration" %>
+<%@ page import="com.eval1.models.duration.Duration" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
-    Duration maxDuration = (Duration) request.getAttribute("maxDuration");
+    Duration duration = (Duration) request.getAttribute("duration");
     String id = "";
-    if (maxDuration != null) {
-        id += maxDuration.getId();
+    if (duration != null) {
+        id += duration.getId();
     }
 %>
 <head>
@@ -48,9 +48,9 @@
                     <form id="form" method="post" >
                         <div class="mb-5">
                             <label>Durée en mois :</label>
-                            <input type="text" name="duration" class="form-control" required
-                            <% if (maxDuration!= null) { %>
-                                value="<%= maxDuration.getDuration() %>"
+                            <input type="number" name="duration" class="form-control" required
+                            <% if (duration!= null) { %>
+                                value="<%= duration.getDuration() %>"
                             <% } %>
                             >
                         </div>

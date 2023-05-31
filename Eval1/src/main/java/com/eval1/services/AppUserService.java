@@ -10,7 +10,7 @@ import com.eval1.models.AppUser;
 
 
 @Service
-public class AppUserService extends CrudService<AppUser, AppUserRepo> {
+public class AppUserService extends CrudServiceDeleted<AppUser, AppUserRepo> {
 
     public AppUserService(AppUserRepo repo, EntityManager manager) {
         super(repo, manager);

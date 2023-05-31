@@ -1,8 +1,10 @@
 package com.eval1.controllers;
 
-import com.eval1.models.Duration;
+import com.eval1.models.duration.Duration;
+import com.eval1.models.duration.DurationFilter;
 import com.eval1.security.SecurityManager;
 import com.eval1.services.DurationService;
+import custom.springutils.util.ListResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,7 @@ public class DurationController {
     SecurityManager securityManager;
 
     @Autowired
-    DurationService maxDurationService;
+    DurationService durationService;
 
     @GetMapping("/create")
     public ModelAndView loadCreateForm(ModelAndView modelAndView) throws Exception {
@@ -30,7 +32,7 @@ public class DurationController {
     public ResponseEntity<?> save(@ModelAttribute Duration maxDuration) throws Exception {
         securityManager.isAdmin();
         try {
-            maxDurationService.create(maxDuration);
+            durationService.create(maxDuration);
             return ResponseEntity.ok("success");
 
         } catch (Exception e) {
@@ -44,8 +46,8 @@ public class DurationController {
     @GetMapping("/update/{id}")
     public ModelAndView loadUpdateForm(ModelAndView modelAndView, @PathVariable("id") Long id) throws Exception {
         securityManager.isAdmin();
-        Duration maxDuration = maxDurationService.findById(id);
-        modelAndView.addObject("maxDuration", maxDuration);
+        Duration duration = durationService.findById(id);
+        modelAndView.addObject("duration", duration);
         modelAndView.setViewName("durations/form");
         return modelAndView;
     }
@@ -56,7 +58,7 @@ public class DurationController {
         try {
 
             maxDuration.setId(id);
-            maxDurationService.update(maxDuration);
+            durationService.update(maxDuration);
             return ResponseEntity.ok("success");
 
         } catch (Exception e) {
@@ -67,25 +69,25 @@ public class DurationController {
 
     }
 
-//    @GetMapping
-////    public ModelAndView list(ModelAndView modelAndView, BrandFilter brandFilter, @RequestParam(required = false) Integer page) throws Exception {
-////        securityManager.isAdmin();
-////        if (page == null) page = 1;
-////        ListResponse brands = maxDurationService.search(brandFilter, page);
-////        modelAndView.addObject("requiredPages", maxDurationService.getRequiredPages(brands.getCount()));
-////        modelAndView.addObject("brands",brands);
-////        modelAndView.addObject("page", page);
-////        if (brandFilter != null) modelAndView.addObject("brandFilter", brandFilter);
-////        modelAndView.setViewName("brands/list-brands");
-////        return modelAndView;
-////    }
+    @GetMapping
+    public ModelAndView list(ModelAndView modelAndView, DurationFilter durationFilter, @RequestParam(required = false) Integer page) throws Exception {
+        securityManager.isAdmin();
+        if (page == null) page = 1;
+        ListResponse durations = durationService.search(durationFilter, page);
+        modelAndView.addObject("requiredPages", durationService.getRequiredPages(durations.getCount()));
+        modelAndView.addObject("durations",durations);
+        modelAndView.addObject("page", page);
+        if (durationFilter != null) modelAndView.addObject("durationFilter", durationFilter);
+        modelAndView.setViewName("durations/list");
+        return modelAndView;
+    }
 
     @GetMapping("delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) throws Exception {
         securityManager.isAdmin();
         try {
 
-            maxDurationService.delete(id);
+            durationService.delete(id);
             return ResponseEntity.ok("success");
 
         } catch (Exception e) {

@@ -17,7 +17,7 @@ import java.lang.Integer;
 @Setter
 @Entity
 @Table(name = "app_user")
-public class AppUser extends HasId implements LoginEntity {
+public class AppUser extends HasDeleted implements LoginEntity {
 
 	@Column(nullable = false)
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
