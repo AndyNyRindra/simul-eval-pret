@@ -65,6 +65,10 @@
 <%--                        </a>--%>
 <%--                        <% } %>--%>
                         <!--end::Add product-->
+                        <a  class="btn btn-success" onclick="window.print()">
+                            <%--                        <a href="${pageContext.request.contextPath}/stats/benefs/pdf" class="btn btn-success">--%>
+                            Exporter en pdf
+                        </a>
                     </div>
                 </div>
                 <!--end::card header-->
@@ -148,31 +152,31 @@
                         <% } %>
                         </tbody>
                     </table>
-                    <ul class="pagination">
-                        <li
-                                <% if (pageNumber == 1) { %>
-                                class="page-item previous disabled"
-                                <% } else { %>
-                                class="page-item previous"
-                                <% } %>
-                        ><a href="${pageContext.request.contextPath}/loan/<%=loan.getId()%>/reimbursements?<%=filters%>&page=<%=pageNumber-1%>" class="page-link"><i class="previous"></i></a></li>
-                        <% for (int i = 1 ; i <= requiredPages ; i++) { %>
-                        <li
-                                <% if (pageNumber == i) { %>
-                                class="page-item active"
-                                <% } else { %>
-                                class="page-item"
-                                <% } %>
-                        ><a href="${pageContext.request.contextPath}/loan/<%=loan.getId()%>/reimbursements?<%=filters%>&page=<%=i%>" class="page-link"><%=i%></a></li>
-                        <% } %>
-                        <li
-                                <% if (pageNumber == requiredPages) { %>
-                                class="page-item next disabled"
-                                <% } else { %>
-                                class="page-item next"
-                                <% } %>
-                        ><a href="${pageContext.request.contextPath}/loan/<%=loan.getId()%>/reimbursements?<%=filters%>&page=<%=pageNumber+1%>"  class="page-link"><i class="next"></i></a></li>
-                    </ul>
+<%--                    <ul class="pagination">--%>
+<%--                        <li--%>
+<%--                                <% if (pageNumber == 1) { %>--%>
+<%--                                class="page-item previous disabled"--%>
+<%--                                <% } else { %>--%>
+<%--                                class="page-item previous"--%>
+<%--                                <% } %>--%>
+<%--                        ><a href="${pageContext.request.contextPath}/loan/<%=loan.getId()%>/reimbursements?<%=filters%>&page=<%=pageNumber-1%>" class="page-link"><i class="previous"></i></a></li>--%>
+<%--                        <% for (int i = 1 ; i <= requiredPages ; i++) { %>--%>
+<%--                        <li--%>
+<%--                                <% if (pageNumber == i) { %>--%>
+<%--                                class="page-item active"--%>
+<%--                                <% } else { %>--%>
+<%--                                class="page-item"--%>
+<%--                                <% } %>--%>
+<%--                        ><a href="${pageContext.request.contextPath}/loan/<%=loan.getId()%>/reimbursements?<%=filters%>&page=<%=i%>" class="page-link"><%=i%></a></li>--%>
+<%--                        <% } %>--%>
+<%--                        <li--%>
+<%--                                <% if (pageNumber == requiredPages) { %>--%>
+<%--                                class="page-item next disabled"--%>
+<%--                                <% } else { %>--%>
+<%--                                class="page-item next"--%>
+<%--                                <% } %>--%>
+<%--                        ><a href="${pageContext.request.contextPath}/loan/<%=loan.getId()%>/reimbursements?<%=filters%>&page=<%=pageNumber+1%>"  class="page-link"><i class="next"></i></a></li>--%>
+<%--                    </ul>--%>
 
                 </div>
                 <!--end::card body-->

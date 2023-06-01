@@ -105,7 +105,7 @@ public class LoanController {
         if (page == null) page = 1;
         Loan loan = loanService.findById(id);
         reimbursementFilter.setLoan(loan);
-        ListResponse reimbursements = reimbursementService.search(reimbursementFilter, page);
+        ListResponse reimbursements = reimbursementService.search(reimbursementFilter, null);
         modelAndView.addObject("requiredPages", reimbursementService.getRequiredPages(reimbursements.getCount()));
         modelAndView.addObject("reimbursements",reimbursements.getElements());
         modelAndView.addObject("loan", loan);
