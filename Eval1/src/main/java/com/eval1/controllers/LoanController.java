@@ -116,6 +116,22 @@ public class LoanController {
         return modelAndView;
     }
 
+    @PostMapping("{loanId}/reimbursement/{id}")
+    public ResponseEntity<?> pay(@PathVariable Long loanId, @PathVariable Long id, @RequestParam(name = "date") String date) throws Exception {
+        securityManager.isCLient();
+        try {
+
+            reimbursementService.pay(id, java.sql.Date.valueOf(date));
+            return ResponseEntity.ok("success");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        }
+
+    }
+
     @PostMapping("accept/{id}")
     public ResponseEntity<?> accept(@PathVariable Long id, @RequestParam(name = "date") String date, @RequestParam(name = "startReimbursement") String startReimbursement) throws Exception {
         securityManager.isAdmin();

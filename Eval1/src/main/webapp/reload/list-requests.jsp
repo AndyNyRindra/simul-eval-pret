@@ -151,7 +151,7 @@
                             <% if (appUser.isAdmin()) { %>
                                 <% if (reloadRequest.getStatus().getId() == 0L) { %>
                                     <td>
-                                        <a href="#" onclick="onAcceptButtonClicked(<%= reloadRequest.getId() %>, '<%= reloadRequest.getClient().getName() %>', '${pageContext.request.contextPath}/reload/accept/<%=reloadRequest.getId()%>')"
+                                        <a href="#" onclick="onAcceptButtonClicked('${pageContext.request.contextPath}/reload/accept/<%=reloadRequest.getId()%>')"
                                            data-bs-target="#accept-modal" data-bs-toggle="modal">
                                             <i class="la la-check text-success fs-2x"></i>
                                         </a>

@@ -1,4 +1,4 @@
-const onAcceptButtonClicked = (id, name, url) => {
+const onAcceptButtonClicked = (url) => {
     // document.getElementById("accept-id").textContent = id;
     document.getElementById("accept-form").action = url;
     // document.getElementById("accept-url").addEventListener('click', function() {

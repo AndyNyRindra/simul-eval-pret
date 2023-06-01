@@ -1,5 +1,6 @@
 package com.eval1.util;
 
+import java.math.BigDecimal;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class DateUtil {
@@ -72,5 +74,22 @@ public class DateUtil {
     public static String getMonth(Date date) {
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM yyyy");
         return sdf.format(date);
+    }
+
+    public static HashMap<Integer, String> getMonths() {
+        HashMap<Integer, String> months = new HashMap<>();
+        months.put(1, "Janvier");
+        months.put(2, "Février");
+        months.put(3, "Mars");
+        months.put(4, "Avril");
+        months.put(5, "Mai");
+        months.put(6, "Juin");
+        months.put(7, "Juillet");
+        months.put(8, "Août");
+        months.put(9, "Septembre");
+        months.put(10, "Octobre");
+        months.put(11, "Novembre");
+        months.put(12, "Décembre");
+        return months;
     }
 }

@@ -147,7 +147,17 @@
                                 <% } %>
                             </td>
                             <td style="color: <%=reimbursement.getStatus().getColor()%>"><%=reimbursement.getStatus().getName()%></td>
+                            <% if (!appUser.isAdmin()) { %>
+                                <% if (reimbursement.getStatus().getId() == 0L) { %>
+                                <td>
+                                    <a href="#" onclick="onPayButtonClicked('${pageContext.request.contextPath}/loan/<%=loan.getId()%>/reimbursement/<%=reimbursement.getId()%>', <%=reimbursement.getTotal()%>)"
+                                       data-bs-target="#accept-modal" data-bs-toggle="modal">
+                                        <i class="la la-dollar text-success fs-2x"></i>
+                                    </a>
+                                </td>
 
+                                <% } %>
+                            <% } %>
                         </tr>
                         <% } %>
                         </tbody>
@@ -192,7 +202,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Accepter</h3>
+                <h3 class="modal-title">Payer <b id="accept-amount"></b> Ar</h3>
 
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
@@ -204,20 +214,15 @@
             <form method="post" id="accept-form">
                 <div class="modal-body">
                     <div class="mb-5">
-                        <label>Accepté le :</label>
+                        <label>Date de paiement :</label>
                         <input type="date" name="date" class="form-control" required
                         >
                     </div>
 
-                    <div class="mb-5">
-                        <label>Début du remboursement :</label>
-                        <input type="date" name="startReimbursement" class="form-control" required
-                        >
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-success" id="accept-url">Accepter</button>
+                    <button type="submit" class="btn btn-success" id="accept-url">Payer</button>
                 </div>
             </form>
 
@@ -227,7 +232,7 @@
                 form.addEventListener('submit', function(evnt) {
                     evnt.preventDefault();
                     const formData = new FormData(form);
-                    send(formData, form.action, "${pageContext.request.contextPath}/loan/reimbursements")
+                    send(formData, form.action, "${pageContext.request.contextPath}/loan/<%=loan.getId()%>/reimbursements")
                 });
             </script>
 
@@ -239,6 +244,6 @@
 
 <!--end::main-->
 <script src="${pageContext.request.contextPath}/assets/custom/elementDelete.js"></script>
-<script src="${pageContext.request.contextPath}/assets/custom/elementAccept.js"></script>
+<script src="${pageContext.request.contextPath}/assets/custom/elementPay.js"></script>
 
 <%@include file="../includes/layouts/default/bottom.jsp"%>

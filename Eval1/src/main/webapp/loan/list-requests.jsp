@@ -157,7 +157,7 @@
                             <% if (appUser.isAdmin()) { %>
                                 <% if (loanRequest.getStatus().getId() == 0L) { %>
                                 <td>
-                                    <a href="#" onclick="onAcceptButtonClicked(<%= loanRequest.getId() %>, '<%= loanRequest.getClient().getName() %>', '${pageContext.request.contextPath}/loan/accept/<%=loanRequest.getId()%>')"
+                                    <a href="#" onclick="onAcceptButtonClicked('${pageContext.request.contextPath}/loan/accept/<%=loanRequest.getId()%>')"
                                        data-bs-target="#accept-modal" data-bs-toggle="modal">
                                         <i class="la la-check text-success fs-2x"></i>
                                     </a>
