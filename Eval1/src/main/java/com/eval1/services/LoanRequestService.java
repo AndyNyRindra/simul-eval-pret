@@ -85,9 +85,10 @@ public class LoanRequestService extends CrudService<LoanRequest, LoanRequestRepo
 
     public Date[] getNextMonths(Date date, int count) {
         Date[] dates = new Date[count];
-        for (int i = 1; i <= count; i++) {
+        dates[0] = date;
+        for (int i = 1; i < count; i++) {
             LocalDate localDate = date.toLocalDate().plusMonths(i);
-            dates[i-1] = Date.valueOf(localDate);
+            dates[i] = Date.valueOf(localDate);
 
         }
         return dates;
