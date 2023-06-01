@@ -1,0 +1,28 @@
+package com.eval1.models.loan;
+
+import custom.springutils.model.HasId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+import java.sql.Date;
+import java.lang.Integer;
+
+
+@Getter
+@Setter
+@Entity
+@Table(name = "loan")
+public class Loan extends HasId {
+
+	private Date date;
+	@ManyToOne()
+	@JoinColumn(name = "request_id")
+	private LoanRequest request;
+	private Date startReimbursement;
+
+}

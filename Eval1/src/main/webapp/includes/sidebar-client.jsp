@@ -61,6 +61,16 @@
                                 <span class="menu-title">Mes emprunts</span>
                             </a>
                         </div>
+
+                        <div class="menu-item">
+                            <a href="${pageContext.request.contextPath}/loan" class="menu-link">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Liste</span>
+                            </a>
+                        </div>
+
                         <div class="menu-item">
                             <a href="${pageContext.request.contextPath}/loan/request/create" class="menu-link">
                                 <span class="menu-bullet">

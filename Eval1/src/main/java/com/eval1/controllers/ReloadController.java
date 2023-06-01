@@ -1,9 +1,6 @@
 package com.eval1.controllers;
 
 import com.eval1.models.appUser.AppUser;
-import com.eval1.models.loan.LoanFilter;
-import com.eval1.models.loan.LoanInput;
-import com.eval1.models.loan.LoanRequest;
 import com.eval1.models.reload.ReloadFilter;
 import com.eval1.models.reload.ReloadInput;
 import com.eval1.models.reload.ReloadRequest;
@@ -13,13 +10,10 @@ import com.eval1.services.StatusService;
 import custom.springutils.util.ListResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Date;
 
 @Controller
 @RequestMapping("/reload")

@@ -1,32 +1,44 @@
 package com.eval1.models.loan;
 
+import com.eval1.models.Status;
 import com.eval1.models.appUser.AppUser;
 import custom.springutils.search.FilterObject;
 import custom.springutils.search.OrderMethod;
 import custom.springutils.search.map.Filter;
+import custom.springutils.search.map.IgnoreMapping;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
-public class LoanFilter extends FilterObject {
+public class LoanRequestFilter extends FilterObject {
 
-    @Filter("request.client")
+    private Status status;
+
+    @IgnoreMapping
+    private Long statusId;
+
     private AppUser client;
 
-    @Filter("ilike_request.client.name")
+    @Filter("ilike_client.name")
     private String clientName;
 
-    @Filter("mineq_request.amount")
     private Double mineq_amount;
 
-    @Filter("maxeq_request.amount")
     private Double maxeq_amount;
 
-    public LoanFilter() {
+    public LoanRequestFilter() {
         setField("date");
         setMethod(OrderMethod.DESC);
+    }
+
+    public void setStatusId(Long statusId) {
+        if (statusId != null) {
+            this.statusId = statusId;
+            Status status1 = new Status();
+            status1.setId(statusId);
+            setStatus(status1);
+        }
     }
 
     public void setClientName(String client) {
@@ -35,8 +47,11 @@ public class LoanFilter extends FilterObject {
 
     public String getFilterConditions() {
         StringBuilder filterConditions = new StringBuilder();
-
-        filterConditions.append("clientName");
+        filterConditions.append("statusId");
+        if (getStatusId() != null) {
+            filterConditions.append("=" +getStatusId());
+        }
+        filterConditions.append("&clientName");
         if (getClientName() != null) {
             filterConditions.append("=" +getClientName());
         }
